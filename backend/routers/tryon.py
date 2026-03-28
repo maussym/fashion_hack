@@ -7,7 +7,6 @@ from pydantic import BaseModel
 import httpx
 
 from models.schemas import TryOnRequest, TryOnResponse
-from services.tryon_engine import process_tryon, process_tryon_outfit
 from services.catalog_cache import get_catalog
 from services.nano_tryon import (
     NANO_KEYS, upload_to_hosting, nano_generate, nano_poll,
@@ -24,12 +23,14 @@ class TryOnOutfitRequest(BaseModel):
 
 @router.post("/tryon", response_model=TryOnResponse)
 def try_on(request: TryOnRequest):
+    from services.tryon_engine import process_tryon
     result = process_tryon(photo_base64=request.photo_base64, item_id=request.item_id)
     return TryOnResponse(**result)
 
 
 @router.post("/tryon/outfit", response_model=TryOnResponse)
 def try_on_outfit(request: TryOnOutfitRequest):
+    from services.tryon_engine import process_tryon_outfit
     result = process_tryon_outfit(photo_base64=request.photo_base64, item_ids=request.item_ids)
     return TryOnResponse(**result)
 
