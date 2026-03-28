@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# Build
+frontend/dist/
+frontend/.vite/
+
+# Data (large files)
+stylist/vector_db.json
+stylist/data/
+stylist/data.csv
+
+# Python
+*.egg-info/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Uploads & results
+backend/data/uploads/
+backend/data/results/
+.claude

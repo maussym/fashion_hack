@@ -1,0 +1,11 @@
+vector_db.json
+data.csv
+data/
+scripts/
+__pycache__/
+*.pyc
+.env
+.git
+.gitignore
+README.md
+pyproject.toml

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Data — не в гит (генерируется локально)
+vector_db.json
+data/data/
+data/avishu_images/
+data/avishu_catalog.json
+data/data.csv
+
+# Qdrant
+qdrant_storage/
+
+# Secrets
+.env
+
+# UV
+.python-version
+uv.lock
