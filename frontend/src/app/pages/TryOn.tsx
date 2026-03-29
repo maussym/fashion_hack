@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { fetchCatalog, runTryOnOutfit, runTryOnAI } from "../lib/api";
+import { fetchCatalog, runTryOnAI } from "../lib/api";
 import { isTryOnCompatible } from "../lib/fashion";
 import TryOnCanvas from "../components/TryOnCanvas";
 import TryOnProductSelector from "../components/TryOnProductSelector";
@@ -54,8 +54,8 @@ export default function TryOn() {
     setProcessing(true); setError(null); setMessage(null);
     try {
       if (mode === "outfit" && selectedOutfitItems.length > 0) {
-        const response = await runTryOnOutfit({ photo_base64: uploadedImage, item_ids: selectedOutfitItems });
-        setResult(response.result_base64); setMessage(response.message ?? null);
+        const objectUrl = await runTryOnAI(uploadedImage, selectedOutfitItems[0]);
+        setResult(objectUrl); setMessage(null);
       } else if (selectedProduct) {
         const objectUrl = await runTryOnAI(uploadedImage, selectedProduct);
         setResult(objectUrl); setMessage(null);
