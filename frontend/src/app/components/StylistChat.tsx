@@ -20,8 +20,8 @@ export function StylistChat({ onSend, generating, suggestions }: Props) {
   };
 
   return (
-    <div className="border-b border-stone-100 p-4 sm:p-8">
-      <div className="max-w-2xl">
+    <div className="border-b border-stone-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-8">
         <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">AI Stylist</p>
         <h1 className="font-serif text-stone-900 text-2xl sm:text-3xl mb-4" style={{ fontWeight: 400 }}>
           {t("stylist.title")}
