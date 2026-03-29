@@ -39,22 +39,26 @@ def try_on_outfit(request: TryOnOutfitRequest):
 async def try_on_ai(
     person: UploadFile = File(..., description="Person photo (JPG/PNG)"),
     item_id: str = Form(..., description="Catalog item ID"),
+    item_ids: str = Form("", description="Comma-separated item IDs for outfit"),
 ):
     if not NANO_KEYS:
         return JSONResponse({"error": "NANO_KEYS not configured"}, status_code=500)
 
     catalog = get_catalog()
-    item = next((i for i in catalog if i.id == item_id), None)
-    if not item:
-        return JSONResponse({"error": f"Item '{item_id}' not found in catalog"}, status_code=404)
+    ids = [i.strip() for i in item_ids.split(",") if i.strip()] if item_ids else [item_id]
+    items = [next((i for i in catalog if i.id == iid), None) for iid in ids]
+    items = [i for i in items if i is not None]
+    if not items:
+        return JSONResponse({"error": "No valid items found"}, status_code=404)
 
+    category = "outfit" if len(items) > 1 else items[0].category
     person_bytes = await person.read()
 
     try:
         person_url = await upload_to_hosting(person_bytes, "person.jpg")
-        cloth_url = item.image_url
+        cloth_urls = [i.image_url for i in items]
 
-        task_id = await nano_generate(person_url, cloth_url)
+        task_id = await nano_generate(person_url, cloth_urls, category)
         logger.info("NanoBanana task: %s", task_id)
 
         result_url = await nano_poll(task_id)

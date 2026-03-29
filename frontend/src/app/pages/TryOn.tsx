@@ -54,7 +54,7 @@ export default function TryOn() {
     setProcessing(true); setError(null); setMessage(null);
     try {
       if (mode === "outfit" && selectedOutfitItems.length > 0) {
-        const objectUrl = await runTryOnAI(uploadedImage, selectedOutfitItems[0]);
+        const objectUrl = await runTryOnAI(uploadedImage, selectedOutfitItems[0], selectedOutfitItems);
         setResult(objectUrl); setMessage(null);
       } else if (selectedProduct) {
         const objectUrl = await runTryOnAI(uploadedImage, selectedProduct);

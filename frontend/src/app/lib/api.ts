@@ -58,11 +58,12 @@ async function dataUrlToBlob(dataUrl: string): Promise<Blob> {
   return res.blob();
 }
 
-export async function runTryOnAI(personDataUrl: string, itemId: string): Promise<string> {
+export async function runTryOnAI(personDataUrl: string, itemId: string, itemIds?: string[]): Promise<string> {
   const personBlob = await dataUrlToBlob(personDataUrl);
   const form = new FormData();
   form.append("person", personBlob, "person.jpg");
   form.append("item_id", itemId);
+  if (itemIds && itemIds.length > 1) form.append("item_ids", itemIds.join(","));
   const resp = await fetch(`${API_PREFIX}/tryon/ai`, { method: "POST", body: form });
   if (!resp.ok) {
     let msg = `Ошибка примерки: ${resp.status}`;
