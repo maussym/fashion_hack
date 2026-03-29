@@ -1,5 +1,6 @@
 import { ChevronRight, Layers, Shirt } from "lucide-react";
 import { CatalogItem } from "../lib/types";
+import { useT } from "../lib/i18n";
 import PhotoUploadArea from "./PhotoUploadArea";
 import TryOnResultArea from "./TryOnResultArea";
 
@@ -29,16 +30,17 @@ export default function TryOnCanvas({
   dragOver, canRun, selectedProductData, selectedOutfitItems,
   onFileSelect, onDrop, onDragOver, onTryOn, onReset,
 }: Props) {
+  const t = useT();
   return (
     <div>
       <div className="flex gap-2 mb-5 sm:mb-6">
         <button onClick={() => onModeChange("single")} className={`flex items-center gap-2 text-xs uppercase tracking-widest px-4 sm:px-5 py-2.5 border transition-colors ${mode === "single" ? "bg-stone-900 text-white border-stone-900" : "border-stone-300 text-stone-500 active:bg-stone-50"}`}>
           <Shirt size={13} />
-          Одна вещь
+          {t("tryon.single")}
         </button>
         <button onClick={() => onModeChange("outfit")} className={`flex items-center gap-2 text-xs uppercase tracking-widest px-4 sm:px-5 py-2.5 border transition-colors ${mode === "outfit" ? "bg-stone-900 text-white border-stone-900" : "border-stone-300 text-stone-500 active:bg-stone-50"}`}>
           <Layers size={13} />
-          Образ
+          {t("tryon.outfit")}
         </button>
       </div>
 
@@ -49,12 +51,12 @@ export default function TryOnCanvas({
 
       <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button onClick={onTryOn} disabled={!canRun || processing} className="bg-stone-900 text-white text-xs uppercase tracking-widest px-6 sm:px-8 py-4 hover:bg-stone-700 transition-colors disabled:opacity-30 flex items-center justify-center gap-3 w-full sm:w-auto active:bg-stone-800">
-          {processing ? "Обрабатываем…" : "Запустить примерку"}
+          {processing ? t("tryon.processing") : t("tryon.run")}
           {!processing && <ChevronRight size={13} />}
         </button>
         {result && (
           <button onClick={onReset} className="border border-stone-900 text-stone-900 text-xs uppercase tracking-widest px-6 sm:px-8 py-4 hover:bg-stone-50 transition-colors w-full sm:w-auto">
-            Начать заново
+            {t("tryon.reset")}
           </button>
         )}
       </div>
@@ -66,12 +68,12 @@ export default function TryOnCanvas({
       )}
 
       <div className="mt-8 sm:mt-12 border-t border-stone-100 pt-6 sm:pt-8">
-        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-4">Для лучшего результата</p>
+        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-4">{t("tryon.tips_title")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {[
-            { step: "01", tip: "Фото в полный рост, хорошее освещение" },
-            { step: "02", tip: "Стойте лицом к камере, не слишком объемная одежда" },
-            { step: "03", tip: "Нейтральный фон для точного определения силуэта" },
+            { step: "01", tip: t("tryon.tip1") },
+            { step: "02", tip: t("tryon.tip2") },
+            { step: "03", tip: t("tryon.tip3") },
           ].map((item) => (
             <div key={item.step} className="flex gap-3 sm:gap-4">
               <span className="font-serif text-stone-200 text-lg shrink-0">{item.step}</span>

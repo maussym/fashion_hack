@@ -4,6 +4,7 @@ import { Search, X } from "lucide-react";
 import { resolveAssetUrl } from "../lib/api";
 import { formatPrice, getCategoryLabel } from "../lib/fashion";
 import { CatalogItem } from "../lib/types";
+import { useT } from "../lib/i18n";
 
 interface SearchOverlayProps {
   searchRef: RefObject<HTMLInputElement | null>;
@@ -15,6 +16,7 @@ interface SearchOverlayProps {
 }
 
 export function SearchOverlay({ searchRef, searchQuery, setSearchQuery, searchResults, searching, onClose }: SearchOverlayProps) {
+  const t = useT();
   return (
     <div className="fixed inset-0 z-[60] bg-white/98 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="max-w-2xl mx-auto px-4 sm:px-8 pt-6 sm:pt-20">
@@ -30,7 +32,7 @@ export function SearchOverlay({ searchRef, searchQuery, setSearchQuery, searchRe
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Найти товар, бренд, цвет…"
+            placeholder={t("search.placeholder")}
             className="flex-1 font-serif text-xl sm:text-2xl text-stone-900 bg-transparent outline-none placeholder:text-stone-300"
           />
           <button onClick={onClose} className="text-stone-400 hover:text-stone-900 transition-colors hidden sm:block">
@@ -39,7 +41,7 @@ export function SearchOverlay({ searchRef, searchQuery, setSearchQuery, searchRe
         </div>
         <div className="mt-6 sm:mt-8 max-h-[70vh] overflow-y-auto">
           {searching ? (
-            <p className="font-serif italic text-stone-400 text-center py-12">Ищем…</p>
+            <p className="font-serif italic text-stone-400 text-center py-12">{t("search.searching")}</p>
           ) : searchResults.length > 0 ? (
             <div className="space-y-0.5">
               {searchResults.map((item) => (
@@ -57,10 +59,10 @@ export function SearchOverlay({ searchRef, searchQuery, setSearchQuery, searchRe
               ))}
             </div>
           ) : searchQuery.trim() ? (
-            <p className="font-serif italic text-stone-400 text-center py-12">Ничего не найдено по запросу «{searchQuery}»</p>
+            <p className="font-serif italic text-stone-400 text-center py-12">{t("search.empty")}</p>
           ) : (
             <div className="text-center py-8 sm:py-12">
-              <p className="font-serif italic text-stone-300 text-base sm:text-lg">Начните вводить название товара, бренд или цвет</p>
+              <p className="font-serif italic text-stone-300 text-base sm:text-lg">{t("search.hint")}</p>
               <div className="flex flex-wrap gap-2 justify-center mt-6">
                 {["casual", "office", "белый", "кроссовки", "платье"].map((hint) => (
                   <button key={hint} onClick={() => setSearchQuery(hint)} className="text-xs uppercase tracking-widest px-4 py-2 border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-colors active:bg-stone-50">

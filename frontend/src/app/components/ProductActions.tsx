@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { Plus, Minus, Heart, ShoppingBag, Check } from "lucide-react";
 import { CatalogItem } from "../lib/types";
+import { useT } from "../lib/i18n";
 
 interface Props {
   product: CatalogItem;
@@ -16,17 +17,10 @@ interface Props {
 }
 
 export function ProductActions({
-  product,
-  details,
-  addedToCart,
-  handleAddToCart,
-  isSaved,
-  onToggleWishlist,
-  detailsOpen,
-  setDetailsOpen,
-  canTryOn,
-  selectedSize,
+  product, details, addedToCart, handleAddToCart, isSaved, onToggleWishlist,
+  detailsOpen, setDetailsOpen, canTryOn, selectedSize,
 }: Props) {
+  const t = useT();
   return (
     <>
       <div className="mt-5 sm:mt-6 flex flex-col gap-2.5 sm:gap-3">
@@ -42,9 +36,9 @@ export function ProductActions({
           disabled={!selectedSize || addedToCart}
         >
           {addedToCart ? (
-            <><Check size={14} /> Добавлено</>
+            <><Check size={14} /> {t("product.added")}</>
           ) : (
-            <><ShoppingBag size={14} /> {selectedSize ? "В корзину" : "Выберите размер"}</>
+            <><ShoppingBag size={14} /> {selectedSize ? t("product.add_cart") : t("product.choose_size")}</>
           )}
         </button>
         <button
@@ -56,14 +50,14 @@ export function ProductActions({
           }`}
         >
           <Heart size={14} fill={isSaved ? "currentColor" : "none"} />
-          {isSaved ? "В избранном" : "В избранное"}
+          {isSaved ? t("product.in_fav") : t("product.to_fav")}
         </button>
         {canTryOn && (
           <Link
             to={`/tryon?item=${product.id}`}
             className="w-full py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-colors text-center block"
           >
-            Примерить виртуально →
+            {t("product.try_virtual")} →
           </Link>
         )}
       </div>
@@ -72,7 +66,7 @@ export function ProductActions({
           onClick={() => setDetailsOpen(!detailsOpen)}
           className="w-full py-4 sm:py-5 flex items-center justify-between text-left border-b border-stone-100"
         >
-          <p className="uppercase tracking-widest text-xs text-stone-900 font-sans">Детали</p>
+          <p className="uppercase tracking-widest text-xs text-stone-900 font-sans">{t("product.details")}</p>
           {detailsOpen ? <Minus size={13} className="text-stone-400" /> : <Plus size={13} className="text-stone-400" />}
         </button>
         {detailsOpen && (

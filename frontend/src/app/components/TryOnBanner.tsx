@@ -1,7 +1,9 @@
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
+import { useT } from "../lib/i18n";
 
 export function TryOnBanner() {
+  const t = useT();
   return (
     <section className="relative h-[60vh] sm:h-[70vh] overflow-hidden">
       <img
@@ -20,20 +22,20 @@ export function TryOnBanner() {
               className="font-serif text-white leading-tight"
               style={{ fontSize: "clamp(1.5rem, 4vw, 3.5rem)", fontWeight: 400 }}
             >
-              Посмотрите,
+              {t("tryon_banner.title1")}
               <br />
-              как вещь сидит
+              {t("tryon_banner.title2")}
               <br />
-              именно на вас.
+              {t("tryon_banner.title3")}
             </h2>
             <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed mt-4 sm:mt-5 max-w-xs">
-              Загрузите фото и получите 2D-примерку прямо в браузере.
+              {t("tryon_banner.desc")}
             </p>
             <Link
               to="/tryon"
               className="inline-flex items-center gap-2 mt-6 sm:mt-8 border border-white text-white text-xs uppercase tracking-widest px-6 sm:px-8 py-3.5 hover:bg-white hover:text-stone-900 transition-colors"
             >
-              Запустить примерку
+              {t("tryon_banner.btn")}
               <ArrowRight size={13} />
             </Link>
           </div>

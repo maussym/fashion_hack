@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createBrowserRouter, Outlet, useLocation } from "react-router";
 import { Navigation } from "./components/Navigation";
+import { useT } from "./lib/i18n";
 import Home from "./pages/Home";
 import Stylist from "./pages/Stylist";
 import TryOn from "./pages/TryOn";
@@ -23,12 +24,14 @@ function Root() {
     <div className="min-h-screen bg-white">
       <ScrollToTop />
       <Navigation />
+      <div className="h-14 sm:h-16" />
       <Outlet />
     </div>
   );
 }
 
 function NotFound() {
+  const t = useT();
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
@@ -36,7 +39,7 @@ function NotFound() {
           404
         </p>
         <h1 className="font-serif text-stone-900" style={{ fontSize: "2rem", fontWeight: 400 }}>
-          Страница не найдена
+          {t("notfound")}
         </h1>
       </div>
     </div>

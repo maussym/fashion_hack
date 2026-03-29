@@ -5,10 +5,12 @@ import { fetchCatalog } from "../lib/api";
 import { formatPrice } from "../lib/fashion";
 import { CatalogItem } from "../lib/types";
 import { useCart } from "../lib/store";
+import { useT } from "../lib/i18n";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
 
 export default function Cart() {
+  const t = useT();
   const cartEntries = useCart();
   const [catalog, setCatalog] = useState<CatalogItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,26 +42,26 @@ export default function Cart() {
     <main className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-20">
         <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">
-          Корзина
+          {t("cart.title")}
         </p>
         <h1 className="font-serif text-stone-900 text-2xl sm:text-4xl" style={{ fontWeight: 400 }}>
-          Ваши товары
+          {t("cart.subtitle")}
         </h1>
 
         {cartEntries.length === 0 ? (
           <div className="py-20 sm:py-32 text-center">
             <ShoppingBag size={28} className="text-stone-200 mx-auto mb-5" />
             <p className="font-serif italic text-stone-400 text-base sm:text-lg">
-              Корзина пуста
+              {t("cart.empty")}
             </p>
             <p className="font-sans text-xs sm:text-sm text-stone-300 mt-2">
-              Добавьте товары из каталога
+              {t("cart.add_items")}
             </p>
             <Link
               to="/"
               className="inline-block mt-8 text-xs uppercase tracking-widest text-stone-400 border border-stone-200 px-6 py-3 active:bg-stone-50"
             >
-              В каталог
+              {t("cart.to_catalog")}
             </Link>
           </div>
         ) : (

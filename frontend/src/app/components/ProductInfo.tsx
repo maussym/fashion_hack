@@ -1,5 +1,6 @@
 import { formatPrice, getStyleLabel } from "../lib/fashion";
 import { CatalogItem } from "../lib/types";
+import { useT } from "../lib/i18n";
 import { ProductActions } from "./ProductActions";
 
 const SIZES = ["XS", "S", "M", "L", "XL"];
@@ -19,18 +20,10 @@ interface Props {
 }
 
 export function ProductInfo({
-  product,
-  details,
-  selectedSize,
-  setSelectedSize,
-  addedToCart,
-  handleAddToCart,
-  isSaved,
-  onToggleWishlist,
-  detailsOpen,
-  setDetailsOpen,
-  canTryOn,
+  product, details, selectedSize, setSelectedSize, addedToCart,
+  handleAddToCart, isSaved, onToggleWishlist, detailsOpen, setDetailsOpen, canTryOn,
 }: Props) {
+  const t = useT();
   return (
     <div className="pt-6 sm:pt-0 lg:pl-8 xl:pl-12 lg:py-8">
       <p className="uppercase tracking-widest text-xs text-stone-400 font-sans">{product.brand}</p>
@@ -45,10 +38,7 @@ export function ProductInfo({
       </p>
       <div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
         {product.styles.map((itemStyle) => (
-          <span
-            key={itemStyle}
-            className="text-[10px] sm:text-xs uppercase tracking-widest px-2.5 py-1 border border-stone-200 text-stone-500"
-          >
+          <span key={itemStyle} className="text-[10px] sm:text-xs uppercase tracking-widest px-2.5 py-1 border border-stone-200 text-stone-500">
             {getStyleLabel(itemStyle)}
           </span>
         ))}
@@ -57,7 +47,7 @@ export function ProductInfo({
         Товар из каталога AVISHU. {canTryOn ? "Доступен" : "Пока не доступен"} для виртуальной примерки.
       </p>
       <div className="mt-6 sm:mt-10">
-        <p className="uppercase tracking-widest text-xs text-stone-900 font-sans mb-3 sm:mb-4">Размер</p>
+        <p className="uppercase tracking-widest text-xs text-stone-900 font-sans mb-3 sm:mb-4">{t("product.size")}</p>
         <div className="flex gap-1">
           {SIZES.map((size) => (
             <button
@@ -75,16 +65,9 @@ export function ProductInfo({
         </div>
       </div>
       <ProductActions
-        product={product}
-        details={details}
-        addedToCart={addedToCart}
-        handleAddToCart={handleAddToCart}
-        isSaved={isSaved}
-        onToggleWishlist={onToggleWishlist}
-        detailsOpen={detailsOpen}
-        setDetailsOpen={setDetailsOpen}
-        canTryOn={canTryOn}
-        selectedSize={selectedSize}
+        product={product} details={details} addedToCart={addedToCart}
+        handleAddToCart={handleAddToCart} isSaved={isSaved} onToggleWishlist={onToggleWishlist}
+        detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} canTryOn={canTryOn} selectedSize={selectedSize}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Send, Sparkles } from "lucide-react";
+import { useT } from "../lib/i18n";
 
 interface Props {
   onSend: (query: string) => void;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function StylistChat({ onSend, generating, suggestions }: Props) {
+  const t = useT();
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,13 +24,13 @@ export function StylistChat({ onSend, generating, suggestions }: Props) {
       <div className="max-w-2xl">
         <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">AI Stylist</p>
         <h1 className="font-serif text-stone-900 text-2xl sm:text-3xl mb-4" style={{ fontWeight: 400 }}>
-          Опишите желаемый образ
+          {t("stylist.title")}
         </h1>
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Например: повседневный образ для девушки на весну"
+            placeholder={t("stylist.placeholder")}
             disabled={generating}
             className="flex-1 border border-stone-200 px-4 py-3 text-sm font-sans text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-900 transition-colors disabled:opacity-50"
           />

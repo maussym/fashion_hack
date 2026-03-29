@@ -7,8 +7,10 @@ import { Footer } from "../components/Footer";
 import { fetchCatalog, generateOutfits } from "../lib/api";
 import { uniqueItems } from "../lib/fashion";
 import { CatalogItem, Outfit } from "../lib/types";
+import { useT } from "../lib/i18n";
 
 export default function Home() {
+  const t = useT();
   const [activeScenario, setActiveScenario] = useState("work");
   const [products, setProducts] = useState<CatalogItem[]>([]);
   const [looks, setLooks] = useState<Outfit[]>([]);
@@ -38,7 +40,7 @@ export default function Home() {
         setLooks(outfitData);
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Не удалось загрузить данные");
+          setError(err instanceof Error ? err.message : t("error.request"));
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -73,9 +75,9 @@ export default function Home() {
 
       <section className="py-16 sm:py-32 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="mb-8 sm:mb-12">
-          <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">Каталог</p>
+          <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">{t("catalog.title")}</p>
           <h2 className="font-serif text-stone-900 text-2xl sm:text-3xl" style={{ fontWeight: 400 }}>
-            Товары для комплектов
+            {t("catalog.subtitle")}
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 sm:gap-1">

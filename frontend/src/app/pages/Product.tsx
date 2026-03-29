@@ -8,9 +8,11 @@ import { fetchCatalog, fetchCatalogItem, generateOutfits } from "../lib/api";
 import { buildProductDetails, uniqueItems } from "../lib/fashion";
 import { CatalogItem, Outfit } from "../lib/types";
 import { addToCart, useWishlist } from "../lib/store";
+import { useT } from "../lib/i18n";
 import { toast } from "sonner";
 
 export default function Product() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<CatalogItem | null>(null);
   const [catalog, setCatalog] = useState<CatalogItem[]>([]);
@@ -35,7 +37,7 @@ export default function Product() {
         const looks = await generateOutfits({ style: item.styles[0] ?? "casual", gender: item.gender, season: item.season[0] });
         if (!cancelled) setRelatedLooks(looks);
       } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Не удалось загрузить товар");
+        if (!cancelled) setError(err instanceof Error ? err.message : t("product.load_error"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -48,7 +50,7 @@ export default function Product() {
     <main className="min-h-screen bg-white flex items-center justify-center">
       <div className="text-center">
         <div className="w-6 h-6 border border-stone-300 border-t-stone-900 rounded-full animate-spin mx-auto" />
-        <p className="font-serif text-stone-400 text-base sm:text-lg mt-4">Загружаем…</p>
+        <p className="font-serif text-stone-400 text-base sm:text-lg mt-4">{t("product.loading")}</p>
       </div>
     </main>
   );
@@ -56,8 +58,8 @@ export default function Product() {
   if (error || !product) return (
     <main className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="text-center">
-        <p className="font-serif text-stone-700 text-lg sm:text-xl">{error ?? "Товар не найден"}</p>
-        <Link to="/" className="inline-block mt-6 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900">На главную</Link>
+        <p className="font-serif text-stone-700 text-lg sm:text-xl">{error ?? t("product.not_found")}</p>
+        <Link to="/" className="inline-block mt-6 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900">{t("product.to_home")}</Link>
       </div>
     </main>
   );
@@ -69,8 +71,8 @@ export default function Product() {
   const looksWithCurrentItem = relatedLooks.filter(look => look.items.some(({ item }) => item.id === product.id));
   const primaryLook = looksWithCurrentItem[0] ?? relatedLooks[0] ?? null;
   const completeLook = primaryLook ? primaryLook.items.map(({ item }) => item).filter(i => i.id !== product.id).slice(0, 3) : relatedProducts.slice(0, 3);
-  const handleAddToCart = () => { if (!selectedSize) return; addToCart(product.id, selectedSize); setAddedToCart(true); toast.success("Добавлено в корзину"); setTimeout(() => setAddedToCart(false), 2000); };
-  const handleWishlist = () => { const added = toggleWishlist(product.id); toast(added ? "Добавлено в избранное" : "Удалено из избранного"); };
+  const handleAddToCart = () => { if (!selectedSize) return; addToCart(product.id, selectedSize); setAddedToCart(true); toast.success(t("product.added_cart")); setTimeout(() => setAddedToCart(false), 2000); };
+  const handleWishlist = () => { const added = toggleWishlist(product.id); toast(added ? t("product.added_fav") : t("product.removed_fav")); };
   const infoProps = { product, details: buildProductDetails(product), selectedSize, setSelectedSize, addedToCart, handleAddToCart, isSaved, onToggleWishlist: handleWishlist, detailsOpen, setDetailsOpen, canTryOn };
   return (
     <main className="bg-white min-h-screen">

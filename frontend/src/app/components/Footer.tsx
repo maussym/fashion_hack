@@ -1,29 +1,31 @@
 import { Link } from "react-router";
-
-const FOOTER_COLUMNS = [
-  {
-    title: "Каталог",
-    links: [
-      { label: "Товары", to: "/" },
-      { label: "AI-образы", to: "/stylist" },
-    ],
-  },
-  {
-    title: "AI",
-    links: [
-      { label: "Стилист", to: "/stylist" },
-      { label: "Примерка", to: "/tryon" },
-    ],
-  },
-  {
-    title: "Аккаунт",
-    links: [
-      { label: "Избранное", to: "/wishlist" },
-    ],
-  },
-];
+import { useT } from "../lib/i18n";
 
 export function Footer() {
+  const t = useT();
+  const FOOTER_COLUMNS = [
+    {
+      title: t("footer.catalog"),
+      links: [
+        { label: t("footer.products"), to: "/" },
+        { label: t("footer.ai_outfits"), to: "/stylist" },
+      ],
+    },
+    {
+      title: "AI",
+      links: [
+        { label: t("footer.stylist"), to: "/stylist" },
+        { label: t("footer.tryon"), to: "/tryon" },
+      ],
+    },
+    {
+      title: t("footer.account"),
+      links: [
+        { label: t("footer.favorites"), to: "/wishlist" },
+      ],
+    },
+  ];
+
   return (
     <footer className="border-t border-stone-200 py-10 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
@@ -31,7 +33,7 @@ export function Footer() {
           <div>
             <img src="/logo-avishu.png" alt="AVISHU" className="h-5 w-auto mb-4 sm:mb-6" />
             <p className="font-sans text-sm text-stone-400 leading-relaxed">
-              Бренд комфортной женской одежды для жизни, дома и отдыха. С 2015 года.
+              {t("footer.desc")}
             </p>
           </div>
           {FOOTER_COLUMNS.map((col) => (

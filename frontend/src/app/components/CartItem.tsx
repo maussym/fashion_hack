@@ -4,6 +4,7 @@ import { resolveAssetUrl } from "../lib/api";
 import { formatPrice } from "../lib/fashion";
 import { CatalogItem } from "../lib/types";
 import { CartEntry, removeFromCart, updateCartQty } from "../lib/store";
+import { useT } from "../lib/i18n";
 import { toast } from "sonner";
 
 interface CartItemProps {
@@ -12,6 +13,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ entry, product }: CartItemProps) {
+  const t = useT();
   return (
     <div className="flex gap-4 sm:gap-6 py-6 border-b border-stone-100">
       <Link
@@ -38,7 +40,7 @@ export default function CartItem({ entry, product }: CartItemProps) {
               {product.name_ru}
             </Link>
             <p className="font-sans text-xs text-stone-400 mt-1">
-              Размер: {entry.size}
+              {t("size_label")} {entry.size}
             </p>
           </div>
           <p className="font-sans text-sm sm:text-base text-stone-900 shrink-0">
@@ -68,7 +70,7 @@ export default function CartItem({ entry, product }: CartItemProps) {
           <button
             onClick={() => {
               removeFromCart(entry.productId, entry.size);
-              toast("Товар удалён из корзины");
+              toast(t("product.removed_cart"));
             }}
             className="text-stone-300 hover:text-stone-900 transition-colors p-1"
           >

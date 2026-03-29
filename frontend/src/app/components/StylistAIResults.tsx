@@ -1,5 +1,6 @@
 import { StylistResponse, StylistItem } from "../lib/types";
 import { STYLIST_API_URL } from "../lib/api";
+import { useT } from "../lib/i18n";
 
 interface Props {
   result: StylistResponse;
@@ -11,11 +12,11 @@ function resolveItemImage(item: StylistItem): string {
   return `${STYLIST_API_URL}${item.image_url}`;
 }
 
-const CAT_LABELS: Record<string, string> = {
-  top: "Верх", bottom: "Низ", shoes: "Обувь", accessory: "Аксессуары",
-};
-
 function CategorySection({ category, items }: { category: string; items: StylistItem[] }) {
+  const t = useT();
+  const CAT_LABELS: Record<string, string> = {
+    top: t("cat.top"), bottom: t("cat.bottom"), shoes: t("cat.shoes"), accessory: t("cat.accessories"),
+  };
   if (!items.length) return null;
   return (
     <div>

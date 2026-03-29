@@ -7,6 +7,8 @@ import { useCartCount, useWishlist } from "../lib/store";
 import { AuthButton } from "./AuthButton";
 import { SearchOverlay } from "./SearchOverlay";
 import { MobileMenu } from "./MobileMenu";
+import { LangSwitcher } from "./LangSwitcher";
+import { useT } from "../lib/i18n";
 
 export function Navigation() {
   const location = useLocation();
@@ -18,7 +20,8 @@ export function Navigation() {
   const searchRef = useRef<HTMLInputElement>(null);
   const cartCount = useCartCount();
   const [wishlist] = useWishlist();
-  const navLinks = [{ to: "/", label: "Главная" }, { to: "/stylist", label: "AI-стилист" }, { to: "/tryon", label: "Примерка" }];
+  const t = useT();
+  const navLinks = [{ to: "/", label: t("nav.home") }, { to: "/stylist", label: t("nav.stylist") }, { to: "/tryon", label: t("nav.tryon") }];
 
   useEffect(() => { if (searchOpen && searchRef.current) searchRef.current.focus(); }, [searchOpen]);
 
@@ -49,7 +52,7 @@ export function Navigation() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
             <Link to="/" className="flex items-center gap-2 shrink-0">
@@ -70,6 +73,7 @@ export function Navigation() {
                 <ShoppingBag size={18} />
                 {cartCount > 0 && <span className="absolute -top-0.5 -right-0.5 bg-stone-900 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-sans">{cartCount}</span>}
               </Link>
+              <LangSwitcher />
               <AuthButton />
             </div>
             <div className="flex md:hidden items-center gap-3">

@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { OutfitCard } from "./OutfitCard";
 import { ProductCard } from "./ProductCard";
 import { CatalogItem, Outfit } from "../lib/types";
+import { useT } from "../lib/i18n";
 
 interface Props {
   product: CatalogItem;
@@ -13,14 +14,15 @@ interface Props {
 }
 
 export function ProductSections({ product, complementaryItems, completeLook, looksWithCurrentItem, relatedProducts }: Props) {
+  const t = useT();
   return (
     <>
       {complementaryItems.length > 0 && (
         <section className="border-t border-stone-100 py-10 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-8">
             <div className="mb-8 sm:mb-12">
-              <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">Рекомендации</p>
-              <h2 className="font-serif text-stone-900 text-xl sm:text-2xl lg:text-3xl" style={{ fontWeight: 400 }}>С этим носят</h2>
+              <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">{t("product.recommendations")}</p>
+              <h2 className="font-serif text-stone-900 text-xl sm:text-2xl lg:text-3xl" style={{ fontWeight: 400 }}>{t("product.worn_with")}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 sm:gap-1">
               {complementaryItems.map(p => <ProductCard key={p.id} product={p} />)}
@@ -33,7 +35,7 @@ export function ProductSections({ product, complementaryItems, completeLook, loo
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="mb-8 sm:mb-12">
             <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">AI Styling</p>
-            <h2 className="font-serif text-stone-900 text-xl sm:text-2xl lg:text-3xl" style={{ fontWeight: 400 }}>Собери образ</h2>
+            <h2 className="font-serif text-stone-900 text-xl sm:text-2xl lg:text-3xl" style={{ fontWeight: 400 }}>{t("product.build_outfit")}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 sm:gap-1">
             <div className="relative">
@@ -44,7 +46,7 @@ export function ProductSections({ product, complementaryItems, completeLook, loo
           </div>
           <div className="mt-8 sm:mt-12 flex justify-center">
             <Link to="/stylist" className="border border-stone-900 text-stone-900 text-xs uppercase tracking-widest px-6 sm:px-8 py-3.5 sm:py-4 flex items-center gap-2 active:bg-stone-50">
-              AI-стилист <ChevronRight size={13} />
+              {t("nav.stylist")} <ChevronRight size={13} />
             </Link>
           </div>
         </div>
@@ -54,8 +56,8 @@ export function ProductSections({ product, complementaryItems, completeLook, loo
         <section className="py-10 sm:py-20 bg-stone-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-8">
             <div className="mb-8 sm:mb-12">
-              <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">Образы</p>
-              <h2 className="font-serif text-stone-900 text-xl sm:text-2xl" style={{ fontWeight: 400 }}>Как это носить</h2>
+              <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">{t("product.outfits")}</p>
+              <h2 className="font-serif text-stone-900 text-xl sm:text-2xl" style={{ fontWeight: 400 }}>{t("product.how_to_wear")}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16">
               {looksWithCurrentItem.map((look, i) => (
@@ -69,8 +71,8 @@ export function ProductSections({ product, complementaryItems, completeLook, loo
       <section className="py-10 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="mb-8 sm:mb-12">
-            <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">Похожие</p>
-            <h2 className="font-serif text-stone-900 text-xl sm:text-2xl" style={{ fontWeight: 400 }}>Вам может понравиться</h2>
+            <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">{t("product.similar")}</p>
+            <h2 className="font-serif text-stone-900 text-xl sm:text-2xl" style={{ fontWeight: 400 }}>{t("product.you_may_like")}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 sm:gap-1">
             {relatedProducts.map(p => <ProductCard key={p.id} product={p} />)}

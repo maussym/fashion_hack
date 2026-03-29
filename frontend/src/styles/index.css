@@ -42,6 +42,12 @@
   button, a {
     -webkit-tap-highlight-color: transparent;
   }
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+  body {
+    overscroll-behavior-y: none;
+  }
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {

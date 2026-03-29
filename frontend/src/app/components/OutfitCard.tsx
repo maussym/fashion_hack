@@ -4,6 +4,7 @@ import { resolveAssetUrl } from "../lib/api";
 import { buildOutfitDescription, formatPrice, getRoleLabel } from "../lib/fashion";
 import { Outfit } from "../lib/types";
 import { useOutfitFavorites } from "../lib/store";
+import { useT } from "../lib/i18n";
 
 interface OutfitCardProps {
   outfit: Outfit;
@@ -16,7 +17,8 @@ function outfitKey(outfit: Outfit): string {
   return outfit.items.map(({ item }) => item.id).sort().join(":");
 }
 
-export function OutfitCard({ outfit, title = "AI-образ", description, onTryOn }: OutfitCardProps) {
+export function OutfitCard({ outfit, title, description, onTryOn }: OutfitCardProps) {
+  const t = useT();
   const scorePercent = Math.round(outfit.score * 100);
   const [favorites, toggleFavorite] = useOutfitFavorites();
   const key = outfitKey(outfit);
@@ -37,7 +39,7 @@ export function OutfitCard({ outfit, title = "AI-образ", description, onTry
       </div>
       <div className="mt-3 sm:mt-4">
         <div className="flex items-start justify-between gap-3">
-          <p className="uppercase tracking-widest text-[10px] sm:text-xs text-stone-400 font-sans">{title}</p>
+          <p className="uppercase tracking-widest text-[10px] sm:text-xs text-stone-400 font-sans">{title ?? t("outfit.ai_look")}</p>
           <div className="flex items-center gap-1.5 shrink-0">
             <div className="h-1.5 w-12 sm:w-16 bg-stone-100 rounded-full overflow-hidden">
               <div className="h-full bg-stone-900 rounded-full transition-all duration-500" style={{ width: `${scorePercent}%` }} />
@@ -60,11 +62,11 @@ export function OutfitCard({ outfit, title = "AI-образ", description, onTry
         <div className="mt-2.5 sm:mt-3 pt-2.5 sm:pt-3 border-t border-stone-50 flex items-center justify-between">
           <p className="font-sans text-xs sm:text-sm text-stone-900 font-medium">{formatPrice(outfit.total_price)}</p>
           <div className="flex items-center gap-3">
-            <p className="text-[10px] sm:text-xs text-stone-400 font-sans">{outfit.items.length} {outfit.items.length < 5 ? "вещи" : "вещей"}</p>
+            <p className="text-[10px] sm:text-xs text-stone-400 font-sans">{outfit.items.length} {t("outfit.items")}</p>
             {onTryOn && (
-              <button onClick={() => { const t = outfit.items.filter(({ item }) => item.category === "top" || item.category === "bottom").map(({ item }) => item.id); if (t.length > 0) onTryOn(t); }}
+              <button onClick={() => { const ids = outfit.items.filter(({ item }) => item.category === "top" || item.category === "bottom").map(({ item }) => item.id); if (ids.length > 0) onTryOn(ids); }}
                 className="text-[10px] sm:text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors">
-                Примерить →
+                {t("outfit.try_on")} →
               </button>
             )}
           </div>

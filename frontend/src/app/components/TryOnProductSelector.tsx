@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { resolveAssetUrl } from "../lib/api";
 import { formatPrice, getCategoryLabel } from "../lib/fashion";
 import { CatalogItem } from "../lib/types";
+import { useT } from "../lib/i18n";
 
 type TryOnMode = "single" | "outfit";
 
@@ -23,6 +24,7 @@ export default function TryOnProductSelector({
   mode, catalog, selectedProduct, selectedOutfitItems, categoryFilter,
   productPanelOpen, onSelectProduct, onToggleOutfitItem, onCategoryFilter, onTogglePanel,
 }: Props) {
+  const t = useT();
   const filtered = categoryFilter === "all" ? catalog : catalog.filter((i) => i.category === categoryFilter);
   const selData = catalog.find((p) => p.id === selectedProduct);
   const btnCls = (active: boolean) => `text-xs uppercase tracking-widest px-3 py-1.5 border transition-colors flex-1 sm:flex-none ${active ? "bg-stone-900 text-white border-stone-900" : "border-stone-200 text-stone-400 active:bg-stone-50"}`;
@@ -33,15 +35,15 @@ export default function TryOnProductSelector({
       <button onClick={onTogglePanel} className="lg:hidden w-full flex items-center justify-between p-4 border border-stone-200 mb-4">
         <div className="flex items-center gap-3">
           {selData && <div className="w-8 h-10 overflow-hidden shrink-0 bg-stone-100"><img src={resolveAssetUrl(selData.image_url)} alt="" className="w-full h-full object-cover" /></div>}
-          <p className="text-xs uppercase tracking-widest text-stone-400 font-sans">{mode === "outfit" ? `Выбрано: ${selectedOutfitItems.length}` : selData?.name_ru ?? "Выберите товар"}</p>
+          <p className="text-xs uppercase tracking-widest text-stone-400 font-sans">{mode === "outfit" ? `${t("outfit.selected")}: ${selectedOutfitItems.length}` : selData?.name_ru ?? t("outfit.select")}</p>
         </div>
         <ChevronDown size={16} className={`text-stone-400 transition-transform ${productPanelOpen ? "rotate-180" : ""}`} />
       </button>
       <div className={`${productPanelOpen ? "block" : "hidden"} lg:block`}>
-        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-3 sm:mb-4 hidden lg:block">{mode === "outfit" ? "Выберите вещи" : "Выберите товар"}</p>
+        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-3 sm:mb-4 hidden lg:block">{mode === "outfit" ? t("outfit.select") : t("outfit.select")}</p>
         <div className="flex gap-1 mb-3 sm:mb-4">
-          {([ ["all", "Все"], ["top", "Верх"], ["bottom", "Низ"] ] as const).map(([val, label]) => (
-            <button key={val} onClick={() => onCategoryFilter(val)} className={btnCls(categoryFilter === val)}>{label}</button>
+          {([ ["all", t("cat.all")], ["top", t("cat.top")], ["bottom", t("cat.bottom")] ] as const).map(([val, label]) => (
+            <button key={val} onClick={() => onCategoryFilter(val as "all" | "top" | "bottom")} className={btnCls(categoryFilter === val)}>{label}</button>
           ))}
         </div>
         <div className="space-y-0.5 max-h-[40vh] sm:max-h-[60vh] overflow-y-auto">
@@ -65,7 +67,7 @@ export default function TryOnProductSelector({
         </div>
         {mode === "outfit" && selectedOutfitItems.length > 0 && (
           <div className="mt-3 p-3 bg-stone-50 border border-stone-200">
-            <p className="text-[10px] sm:text-xs uppercase tracking-widest text-stone-400 font-sans mb-2">Выбрано</p>
+            <p className="text-[10px] sm:text-xs uppercase tracking-widest text-stone-400 font-sans mb-2">{t("outfit.selected")}</p>
             <div className="flex flex-wrap gap-1">
               {selectedOutfitItems.map((id) => {
                 const item = catalog.find((p) => p.id === id);
@@ -73,7 +75,7 @@ export default function TryOnProductSelector({
                 return (
                   <span key={id} className="text-[10px] sm:text-xs bg-stone-900 text-white px-2 py-1 flex items-center gap-1">
                     {getCategoryLabel(item.category)}
-                    <button onClick={() => onToggleOutfitItem(id)} className="text-white/60 hover:text-white ml-0.5">×</button>
+                    <button onClick={() => onToggleOutfitItem(id)} className="text-white/60 hover:text-white ml-0.5">x</button>
                   </span>
                 );
               })}
@@ -85,7 +87,7 @@ export default function TryOnProductSelector({
             <h2 className="font-serif text-stone-900 text-lg sm:text-xl">{selData.name_ru}</h2>
             <p className="font-sans text-xs sm:text-sm text-stone-500 mt-1 sm:mt-2">{selData.brand} · {formatPrice(selData.price)}</p>
             <Link to={`/product/${selData.id}`} className="text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 flex items-center gap-2 mt-3 sm:mt-4">
-              Карточка товара <ChevronRight size={11} />
+              <ChevronRight size={11} />
             </Link>
           </div>
         )}

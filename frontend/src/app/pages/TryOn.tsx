@@ -4,10 +4,12 @@ import { fetchCatalog, runTryOnOutfit, runTryOnAI } from "../lib/api";
 import { isTryOnCompatible } from "../lib/fashion";
 import TryOnCanvas from "../components/TryOnCanvas";
 import TryOnProductSelector from "../components/TryOnProductSelector";
+import { useT } from "../lib/i18n";
 
 type TryOnMode = "single" | "outfit";
 
 export default function TryOn() {
+  const t = useT();
   const [searchParams] = useSearchParams();
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [catalog, setCatalog] = useState<any[]>([]);
@@ -30,7 +32,7 @@ export default function TryOn() {
       setCatalog(tryable);
       if (!selectedProduct && tryable.length > 0) setSelectedProduct(tryable[0].id);
     }).catch((err) => {
-      if (!cancelled) setError(err instanceof Error ? err.message : "Не удалось загрузить каталог");
+      if (!cancelled) setError(err instanceof Error ? err.message : t("tryon.catalog_error"));
     });
     return () => { cancelled = true; };
   }, []);
@@ -59,7 +61,7 @@ export default function TryOn() {
         setResult(objectUrl); setMessage(null);
       } else return;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Не удалось выполнить примерку");
+      setError(err instanceof Error ? err.message : t("tryon.error"));
     } finally { setProcessing(false); }
   };
 
@@ -71,10 +73,10 @@ export default function TryOn() {
   return (
     <main className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-20">
-        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">Virtual Try-On</p>
-        <h1 className="font-serif text-stone-900 text-2xl sm:text-4xl" style={{ fontWeight: 400 }}>Примерьте на фото</h1>
+        <p className="uppercase tracking-widest text-xs text-stone-400 font-sans mb-1">{t("tryon.subtitle")}</p>
+        <h1 className="font-serif text-stone-900 text-2xl sm:text-4xl" style={{ fontWeight: 400 }}>{t("tryon.title")}</h1>
         <p className="font-sans text-xs sm:text-sm text-stone-400 leading-relaxed mt-3 sm:mt-4 max-w-xl">
-          Загрузите фото в полный рост. AI определит силуэт и наложит одежду с учетом пропорций.
+          {t("tryon.desc")}
         </p>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-20 sm:pb-32">
