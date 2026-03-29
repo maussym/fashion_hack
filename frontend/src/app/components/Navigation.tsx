@@ -54,16 +54,18 @@ export function Navigation() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            <Link to="/" className="flex items-center gap-2 shrink-0">
-              <img src="/logo-avishu.png" alt="AVISHU" className="h-5 sm:h-6 w-auto" />
-            </Link>
-            <div className="hidden md:flex items-center gap-8 lg:gap-10">
+          <div className="flex items-center h-14 sm:h-16">
+            <div className="flex-1 flex items-center">
+              <Link to="/" className="flex items-center gap-2 shrink-0">
+                <img src="/logo-avishu.png" alt="AVISHU" className="h-5 sm:h-6 w-auto" />
+              </Link>
+            </div>
+            <div className="hidden md:flex items-center justify-center gap-8 lg:gap-10">
               {navLinks.map((link) => (
                 <Link key={link.to} to={link.to} className={`text-xs uppercase tracking-widest transition-colors ${location.pathname === link.to ? "text-stone-900" : "text-stone-400 hover:text-stone-900"}`}>{link.label}</Link>
               ))}
             </div>
-            <div className="hidden md:flex items-center gap-5">
+            <div className="hidden md:flex flex-1 items-center justify-end gap-5">
               <button onClick={() => setSearchOpen(!searchOpen)} className="text-stone-400 hover:text-stone-900 transition-colors p-1" title="Поиск"><Search size={18} /></button>
               <Link to="/wishlist" className="text-stone-400 hover:text-stone-900 transition-colors relative p-1" title="Избранное">
                 <Heart size={18} fill={wishlist.length > 0 ? "currentColor" : "none"} />
@@ -76,7 +78,7 @@ export function Navigation() {
               <LangSwitcher />
               <AuthButton />
             </div>
-            <div className="flex md:hidden items-center gap-3">
+            <div className="flex md:hidden flex-1 items-center justify-end gap-3">
               <button onClick={() => setSearchOpen(true)} className="text-stone-500 p-1.5"><Search size={20} /></button>
               <Link to="/wishlist" className="text-stone-500 p-1.5 relative">
                 <Heart size={20} fill={wishlist.length > 0 ? "currentColor" : "none"} />

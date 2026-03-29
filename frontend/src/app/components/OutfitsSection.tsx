@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { OutfitCard } from "./OutfitCard";
+import { SkeletonOutfitCard } from "./Skeleton";
 import { getScenarioLabel } from "../lib/fashion";
 import { Outfit } from "../lib/types";
 import { useT } from "../lib/i18n";
@@ -41,9 +42,9 @@ export function OutfitsSection({ activeScenario, onScenarioChange, looks, loadin
       </div>
 
       {loading ? (
-        <div className="py-16 sm:py-20 text-center">
-          <div className="w-6 h-6 border border-stone-300 border-t-stone-900 rounded-full animate-spin mx-auto mb-4" />
-          <p className="font-serif italic text-stone-400 text-base sm:text-lg">{t("outfits.loading")}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16">
+          <SkeletonOutfitCard />
+          <SkeletonOutfitCard />
         </div>
       ) : error ? (
         <div className="py-16 sm:py-20 text-center">

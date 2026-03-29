@@ -4,6 +4,7 @@ import { HeroSection } from "../components/HeroSection";
 import { OutfitsSection } from "../components/OutfitsSection";
 import { TryOnBanner } from "../components/TryOnBanner";
 import { Footer } from "../components/Footer";
+import { SkeletonGrid } from "../components/Skeleton";
 import { fetchCatalog, generateOutfits } from "../lib/api";
 import { uniqueItems } from "../lib/fashion";
 import { CatalogItem, Outfit } from "../lib/types";
@@ -80,11 +81,15 @@ export default function Home() {
             {t("catalog.subtitle")}
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 sm:gap-1">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {loading && products.length === 0 ? (
+          <SkeletonGrid />
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 sm:gap-1">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       <TryOnBanner />

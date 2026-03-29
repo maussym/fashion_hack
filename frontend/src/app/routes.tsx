@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createBrowserRouter, Outlet, useLocation } from "react-router";
 import { Navigation } from "./components/Navigation";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import { useT } from "./lib/i18n";
 import Home from "./pages/Home";
 import Stylist from "./pages/Stylist";
@@ -26,6 +27,7 @@ function Root() {
       <Navigation />
       <div className="h-14 sm:h-16" />
       <Outlet />
+      <ScrollToTopButton />
     </div>
   );
 }
