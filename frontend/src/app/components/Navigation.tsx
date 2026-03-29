@@ -8,6 +8,7 @@ import { AuthButton } from "./AuthButton";
 import { SearchOverlay } from "./SearchOverlay";
 import { MobileMenu } from "./MobileMenu";
 import { LangSwitcher } from "./LangSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { useT } from "../lib/i18n";
 
 export function Navigation() {
@@ -75,6 +76,7 @@ export function Navigation() {
                 <ShoppingBag size={18} />
                 {cartCount > 0 && <span className="absolute -top-0.5 -right-0.5 bg-stone-900 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-sans">{cartCount}</span>}
               </Link>
+              <ThemeToggle />
               <LangSwitcher />
               <AuthButton />
             </div>

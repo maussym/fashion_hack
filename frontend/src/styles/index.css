@@ -2,6 +2,33 @@
 @import './tailwind.css';
 @import './theme.css';
 
+.dark {
+  color-scheme: dark;
+}
+.dark body,
+.dark .bg-white { background-color: #0f0f0f !important; }
+.dark .bg-white\/95 { background-color: rgba(15,15,15,0.95) !important; }
+.dark .bg-stone-50 { background-color: #1a1a1a !important; }
+.dark .bg-stone-100 { background-color: #1f1f1f !important; }
+.dark .bg-stone-900 { background-color: #e7e5e4 !important; color: #0f0f0f !important; }
+.dark .text-stone-900 { color: #e7e5e4 !important; }
+.dark .text-stone-700 { color: #d6d3d1 !important; }
+.dark .text-stone-600 { color: #a8a29e !important; }
+.dark .text-stone-500 { color: #78716c !important; }
+.dark .text-stone-400 { color: #a8a29e !important; }
+.dark .text-stone-300 { color: #57534e !important; }
+.dark .text-stone-200 { color: #44403c !important; }
+.dark .text-white { color: #0f0f0f !important; }
+.dark .border-stone-100 { border-color: #292524 !important; }
+.dark .border-stone-200 { border-color: #44403c !important; }
+.dark .border-stone-300 { border-color: #57534e !important; }
+.dark .hover\:bg-stone-50:hover { background-color: #1a1a1a !important; }
+.dark .hover\:bg-stone-700:hover { background-color: #d6d3d1 !important; }
+.dark .hover\:bg-stone-800:hover { background-color: #e7e5e4 !important; }
+.dark .hover\:text-stone-900:hover { color: #e7e5e4 !important; }
+.dark .border-stone-900 { border-color: #e7e5e4 !important; }
+.dark .bg-white\/90 { background-color: rgba(15,15,15,0.9) !important; }
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

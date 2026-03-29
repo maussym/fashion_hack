@@ -19,18 +19,19 @@ export default function Stylist() {
   const [error, setError] = useState<string | null>(null);
   const [lastQuery, setLastQuery] = useState<string | null>(null);
   const latestRef = useRef<HTMLDivElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
   const suggestions = [t("stylist.s1"), t("stylist.s2"), t("stylist.s3"), t("stylist.s4")];
 
   const handleSend = async (query: string) => {
     setGenerating(true);
     setError(null);
     setLastQuery(query);
-    setTimeout(() => latestRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setTimeout(() => loaderRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
     try {
       const response = await askStylist(query, sessionId);
       setSessionId(response.session_id);
       setHistory((prev) => [...prev, { query, result: response }]);
-      setTimeout(() => latestRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+      setTimeout(() => latestRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("stylist.error"));
     } finally {
@@ -42,10 +43,9 @@ export default function Stylist() {
     <div className="min-h-screen bg-white">
       <StylistChat onSend={handleSend} generating={generating} suggestions={suggestions} />
       <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
-        {history.length > 0 && <StylistHistory entries={history} />}
-        <div ref={latestRef} />
+        {history.length > 0 && <StylistHistory entries={history} latestRef={latestRef} />}
         {generating && (
-          <div className="py-16 text-center">
+          <div ref={loaderRef} className="py-16 text-center">
             <div className="w-6 h-6 border border-stone-300 border-t-stone-900 rounded-full animate-spin mx-auto mb-4" />
             <p className="font-serif italic text-stone-400">{t("stylist.loading")}</p>
             {lastQuery && <p className="text-xs text-stone-300 mt-2">&laquo;{lastQuery}&raquo;</p>}
