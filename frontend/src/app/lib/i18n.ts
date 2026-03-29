@@ -175,6 +175,29 @@ const translations: Record<string, Record<Lang, string>> = {
   "error.request": { ru: "Ошибка запроса", kz: "Сұрау қатесі", en: "Request error" },
   "error.tryon": { ru: "Ошибка примерки", kz: "Киіп көру қатесі", en: "Try-on error" },
   "error.cloth": { ru: "Не удалось загрузить изображение одежды", kz: "Киім суретін жүктеу мүмкін болмады", en: "Failed to load clothing image" },
+
+  "nav.about": { ru: "О бренде", kz: "Бренд туралы", en: "About" },
+  "nav.sizes": { ru: "Размеры", kz: "Өлшемдер", en: "Sizes" },
+
+  "about.title": { ru: "О бренде", kz: "Бренд туралы", en: "About the Brand" },
+  "about.p1": { ru: "бренд с философией комфортной одежды, для жизни, дома и отдыха.", kz: "өмір, үй және демалысқа арналған ыңғайлы киім философиясы бар бренд.", en: "a brand with a philosophy of comfortable clothing for life, home and leisure." },
+  "about.quote": { ru: "Женщина AVISHU всегда шикарна, всегда в движении, ценит комфорт и качество. Она заботится о себе, а мы заботимся о её комфорте через одежду.", kz: "AVISHU әйелі әрқашан сәнді, әрқашан қозғалыста, жайлылық пен сапаны бағалайды. Ол өзіне қамқорлық жасайды, ал біз оның жайлылығына киім арқылы қамқорлық жасаймыз.", en: "The AVISHU woman is always gorgeous, always in motion, values comfort and quality. She takes care of herself, and we take care of her comfort through clothing." },
+  "about.p2": { ru: "AVISHU — это всегда было и есть про стиль и комфорт в каждой минутке вашей жизни. Наша философия в том, чтобы не тратить много времени на продумывание и создание образов, на уход за изделиями, именно поэтому мы создали капсулы, где каждая позиция сочетается с другой.", kz: "AVISHU — бұл сіздің өміріңіздің әр сәтіндегі стиль мен жайлылық туралы. Біздің философиямыз — бейне ойлап табуға және жасауға, бұйымдарға күтім жасауға көп уақыт жұмсамау.", en: "AVISHU has always been about style and comfort in every moment of your life. Our philosophy is to save you time on planning outfits, which is why we created capsule collections where every piece pairs with another." },
+  "about.p3": { ru: "Вещи бренда AVISHU — это инвестиция в ваш стиль, они будут служить вам долго, потому как это простая классика, которая никогда не выйдет из моды.", kz: "AVISHU бренд заттары — бұл сіздің стиліңізге инвестиция, олар сізге ұзақ қызмет етеді, өйткені бұл ешқашан модадан шықпайтын қарапайым классика.", en: "AVISHU pieces are an investment in your style — they will serve you for years, because simple classics never go out of fashion." },
+  "about.p4": { ru: "Про что наша одежда? Про минимализм и роскошь, про любовь и преданность Себе. Тренды меняются, а внутреннее чувство абсолютной уверенности с нами навсегда.", kz: "Біздің киім не туралы? Минимализм мен сәнділік, өзіңе деген сүйіспеншілік пен адалдық туралы.", en: "What is our clothing about? Minimalism and luxury, self-love and devotion. Trends change, but the inner feeling of absolute confidence stays with us forever." },
+  "about.p5": { ru: "За 9 лет работы большое количество людей стали частью AVISHU, прикоснулись к нам и остаются с нами по сей день.", kz: "9 жыл жұмыс барысында көптеген адамдар AVISHU-дің бір бөлігі болды және бүгінгі күнге дейін бізбен бірге.", en: "Over 9 years, many people have become part of AVISHU and remain with us to this day." },
+  "about.p6": { ru: "С любовью, AVISHU", kz: "Сүйіспеншілікпен, AVISHU", en: "With love, AVISHU" },
+  "about.cta": { ru: "Перейти к каталогу", kz: "Каталогқа өту", en: "Go to Catalog" },
+
+  "size.title": { ru: "Размерная сетка", kz: "Өлшем кестесі", en: "Size Chart" },
+  "size.desc": { ru: "Зная свои мерки, вы с лёгкостью определите размер вашей новой комфортной одежды.", kz: "Өз өлшемдеріңізді біле отырып, жаңа ыңғайлы киіміңіздің өлшемін оңай анықтайсыз.", en: "Knowing your measurements, you can easily determine the size of your new comfortable clothing." },
+  "size.base": { ru: "Базовые размеры", kz: "Негізгі өлшемдер", en: "Base Sizes" },
+  "size.plus": { ru: "Размеры Plus (+20% к стоимости)", kz: "Plus өлшемдер (+20% құнға)", en: "Plus Sizes (+20% to price)" },
+  "size.bust": { ru: "Обхват груди", kz: "Кеуде айналасы", en: "Bust" },
+  "size.waist": { ru: "Обхват талии", kz: "Бел айналасы", en: "Waist" },
+  "size.hips": { ru: "Обхват бёдер", kz: "Жамбас айналасы", en: "Hips" },
+  "size.custom_title": { ru: "Размер вне сетки", kz: "Кесте сыртындағы өлшем", en: "Custom Size" },
+  "size.custom_desc": { ru: "Если ваши мерки не совпадают с нашей сеткой, мы осуществляем индивидуальный крой (+20%). Мы всегда учитываем ваш рост при корректировке длины изделия.", kz: "Егер сіздің өлшемдеріңіз біздің кестеге сәйкес келмесе, біз жеке пішу жасаймыз (+20%). Біз бұйым ұзындығын түзету кезінде сіздің бойыңызды әрқашан ескереміз.", en: "If your measurements don't match our chart, we offer custom tailoring (+20%). We always consider your height when adjusting garment length." },
 };
 
 export function t(key: string): string {

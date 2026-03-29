@@ -3,7 +3,6 @@ import { ProductCard } from "../components/ProductCard";
 import { HeroSection } from "../components/HeroSection";
 import { OutfitsSection } from "../components/OutfitsSection";
 import { TryOnBanner } from "../components/TryOnBanner";
-import { Footer } from "../components/Footer";
 import { SkeletonGrid } from "../components/Skeleton";
 import { fetchCatalog, generateOutfits } from "../lib/api";
 import { uniqueItems } from "../lib/fashion";
@@ -93,8 +92,6 @@ export default function Home() {
       </section>
 
       <TryOnBanner />
-
-      <Footer />
     </main>
   );
 }

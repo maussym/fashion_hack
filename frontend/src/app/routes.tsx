@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet, useLocation } from "react-router";
 import { Navigation } from "./components/Navigation";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import { useT } from "./lib/i18n";
+import { Footer } from "./components/Footer";
 import Home from "./pages/Home";
 import Stylist from "./pages/Stylist";
 import TryOn from "./pages/TryOn";
@@ -11,6 +12,10 @@ import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import About from "./pages/About";
+import SizeChart from "./pages/SizeChart";
+import Privacy from "./pages/Privacy";
+import Offer from "./pages/Offer";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,6 +32,7 @@ function Root() {
       <Navigation />
       <div className="h-14 sm:h-16" />
       <Outlet />
+      <Footer />
       <ScrollToTopButton />
     </div>
   );
@@ -59,6 +65,10 @@ export const router = createBrowserRouter([
       { path: "product/:id", Component: Product },
       { path: "wishlist", Component: Wishlist },
       { path: "cart", Component: Cart },
+      { path: "about", Component: About },
+      { path: "sizes", Component: SizeChart },
+      { path: "privacy", Component: Privacy },
+      { path: "offer", Component: Offer },
       { path: "sign-in/*", Component: SignIn },
       { path: "sign-up/*", Component: SignUp },
       { path: "*", Component: NotFound },
