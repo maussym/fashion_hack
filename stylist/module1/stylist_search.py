@@ -44,7 +44,8 @@ else:
 
 def get_image_url(image_filename: str, source: str = "kaggle") -> str:
     if IMAGE_CDN:
-        return f"{IMAGE_CDN}/{image_filename}"
+        d = image_filename[0] if image_filename else "0"
+        return f"{IMAGE_CDN}/images/{d}/{image_filename}"
     if source == "avishu.kz":
         return f"/images/avishu/{image_filename}"
     return f"/images/dataset/{image_filename}"
